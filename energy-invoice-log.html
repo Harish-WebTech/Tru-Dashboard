@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!-- links -->
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/media.css">
+  <link rel="stylesheet" href="css/calender.css">
+  <link href="https://cdn.datatables.net/v/bs5/dt-1.13.4/datatables.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css
+">
+</head>
+
+<body id="body-pd">
+
+  <!-- Modal -->
+  <div class="modal fade" id="raisedispute" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Raise Discrepancy Appeal</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="textarea">
+            <label class="">Remark</label>
+            <textarea class="form-control" rows="4"></textarea>
+          </div>
+          <div class="simplefileupload my-2">
+            <label class="d-block my-2">Attach document</label>
+            <div class="d-flex">
+              <input type="file" name="" class="form-control">
+              <button class="btn btn-light ms-3 px-4"><i class="bi bi-upload"></i></button>
+            </div>
+          </div>
+          <div class="my-4">
+            <label class="d-block my-2">Tentative timeline to resolve</label>
+            <input type="date" class="form-control">
+          </div>
+        </div>
+        <div class="modal-footer mt-0 border-0">
+          <button type="button" class="btn btn-outline-danger">Mark as Resolved & close</button>
+          <button type="button" class="btn custombtn btncenter">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- modal end -->
+
+  <!-- Modal -->
+  <div class="modal fade" id="viewdispute" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">View Dispute</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="textarea">
+            <label class="">Remark</label>
+            <textarea disabled class="form-control" rows="4"></textarea>
+          </div>
+          <div class="simplefileupload my-2">
+            <label class="d-block my-2">Attach document</label>
+            <div class="d-flex">
+              <input type="file" disabled name="" class="form-control">
+              <button class="btn btn-light ms-3 px-4"><i class="bi bi-upload"></i></button>
+            </div>
+          </div>
+          <div class="my-4">
+            <label class="d-block my-2">Tentative timeline to resolve</label>
+            <input type="date" disabled class="form-control">
+          </div>
+        </div>
+        <div class="modal-footer pt-0 border-0">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- modal end -->
+
+  <!-- Modal -->
+  <div class="modal fade" id="sendback" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Send back</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="textarea">
+            <label class="">Remarks</label>
+            <textarea class="form-control" rows="4"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">cancel</button>
+          <button type="button" class="btn btn-success" data-bs-dismiss="modal">Send Back</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- modal end -->
+
+
+  <!-- Modal Plant Outage ticket -->
+  <div class="modal fade modal-lg" id="updatedispute" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">JMR and Invoice status</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="jmrdateflex">
+            <div class="field">
+              <div class="ui calendar" id="rangestart">
+                <label class="me-1">Scheduled JMR reading date</label>
+                <div class="ui input left icon">
+                  <i class='icon bx bx-calendar'></i>
+                  <input type="text" disabled placeholder="Start">
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <div class="ui calendar" id="rangeend">
+                <label class="me-1">Scheduled Invoice submission due date</label>
+                <div class="ui input left icon">
+                  <i class='icon bx bx-calendar'></i>
+                  <input type="text" disabled placeholder="End" class="w-auto">
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <div class="ui calendar" id="rangeend">
+                <label class="me-1">Scheduled JMR generation date</label>
+                <div class="ui input left icon">
+                  <i class='icon bx bx-calendar'></i>
+                  <input type="text" disabled placeholder="End" class="w-auto">
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <div class="ui calendar" id="rangeend">
+                <label class="me-1">Payment Due date</label>
+                <div class="ui input left icon">
+                  <i class='icon bx bx-calendar'></i>
+                  <input type="text" disabled placeholder="End" class="w-auto">
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <label class="me-1">JMR No</label>
+              <div class="">
+                <input type="text" class="form-control" disabled>
+              </div>
+            </div>
+            <div class="field">
+              <label class="me-1">Scheduled JMR Amount</label>
+              <div class="">
+                <input type="text" class="form-control" disabled>
+              </div>
+            </div>
+          </div>
+          <div class="card logdetails shadow-none">
+            <div class="d-flex justify-content-between align-items-center">
+              <h6 class="mb-1">Send back comments</h6>
+              <label class="dropdown mb-2">
+                <div class="dd-button"> Action </div>
+                <input type="checkbox" class="dd-input" id="test">
+                <ul class="dd-menu">
+                  <li onclick="alert('Approved!')">Approve</li>
+                  <li data-bs-toggle="modal" data-bs-target="#sendback">Send Back</li>
+                </ul>
+              </label>
+            </div>
+            <div class="logbody" style="min-height:auto;">
+              <ul class="ps-0">
+                <li class="bg-light border">
+                  <label>
+                    <span>Send back by Remark</span>
+                    <span>Date of request</span>
+                    <span>Send back date</span>
+                  </label>
+                  <label>
+                    <span>Attachment <i class="bi bi-paperclip"></i></span>
+                  </label>
+                </li>
+                <li class="bg-light border">
+                  <label>
+                    <span>Send back by Remark</span>
+                    <span>Date of request</span>
+                    <span>Send back date</span>
+                  </label>
+                  <label>
+                    <span>Attachment <i class="bi bi-paperclip"></i></span>
+                  </label>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="card logdetails shadow-none">
+            <div class="d-flex justify-content-between mb-0">
+              <h6 class="mb-1">Dispute status</h6>
+              <button class="btn btn-sm custombtn" data-bs-toggle="modal" data-bs-target="#raisedispute">Update <i
+                  class="bi bi-pencil-square"></i></button>
+            </div>
+            <div class="logbody" style="min-height:auto;">
+              <ul class="ps-0">
+                <li class="bg-light border">
+                  <label>
+                    <span>Dispute status</span>
+                    <span>Date</span>
+                    <span>Dispute created by</span>
+                  </label>
+                  <label>
+                    <span>Dispute Remarks</span>
+                  </label>
+                  <label>
+                    <span>Attachment <i class="bi bi-paperclip"></i></span>
+                  </label>
+                </li>
+                <li class="bg-light border">
+                  <label>
+                    <span>Dispute status</span>
+                    <span>Date</span>
+                    <span>Dispute created by</span>
+                  </label>
+                  <label>
+                    <span>Dispute Remarks</span>
+                  </label>
+                  <label>
+                    <span>Attachment <i class="bi bi-paperclip"></i></span>
+                  </label>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="card logdetails jmrtimeline">
+            <div class="d-flex justify-content-between mb-0">
+              <h6 class="mb-1">JMR and Invoice Timeline</h6>
+              <button class="btn btn-sm custombtn">Update <i class="bi bi-pencil-square"></i></button>
+            </div>
+            <div class="logbody" style="min-height:auto;">
+              <ul class="p-0 bg-light border">
+                <li>
+                  <div class="jmrtimlinebox">
+                    <h5 class="border-bottom pb-2">Payment receival status</h5>
+                    <ul class="ps-0">
+                      <li>
+                        <span>Date</span>
+                        <label class="mb-0">
+                          <span class="text-nowrap mt-2 me-2">17 Apr 2023</span>
+                          <input type="date" class="form-control ms-2">
+                        </label>
+                      </li>
+                      <li>
+                        <span>Executed by</span>
+                        <span>Manohar</span>
+                      </li>
+                      <li>
+                        <span>UTR no.</span>
+                        <span>AXKPM6667DF</span>
+                      </li>
+                      <li>
+                        <span>UTR Date</span>
+                        <span>17 Feb 2023</span>
+                      </li>
+                      <li>
+                        <span>Received amount</span>
+                        <span>INR 20,00,230</span>
+                      </li>
+                    </ul>
+                  </div>
+                </li>
+                <li>
+                  <div class="jmrtimlinebox">
+                    <h5 class="border-bottom pb-2">Invoice submission to Offtaker</h5>
+                    <ul class="ps-0">
+                      <li>
+                        <span>Date</span>
+                        <label class="mb-0">
+                          <span class="text-nowrap mt-2 me-2">17 Apr 2023</span>
+                          <input type="date" class="form-control ms-2">
+                        </label>
+                      </li>
+                      <li>
+                        <span>Executed by</span>
+                        <span>Manohar</span>
+                      </li>
+                      <li>
+                        <span>Attachment <i class="bi bi-paperclip"></i>s</span>
+                        <span><a href="#" download="">Acknowledge receipt</a></span>
+                      </li>
+                    </ul>
+                  </div>
+                </li>
+                <li>
+                  <div class="jmrtimlinebox">
+                    <h5 class="border-bottom pb-2">JMR no. submitted by site team</h5>
+                    <ul class="ps-0">
+                      <li>
+                        <span>Date</span>
+                        <label class="mb-0">
+                          <span class="text-nowrap mt-2 me-2">17 Apr 2023</span>
+                          <input type="date" class="form-control ms-2">
+                        </label>
+                      </li>
+                      <li>
+                        <span>Executed by</span>
+                        <span>Manohar</span>
+                      </li>
+                    </ul>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer mt-0 border-0">
+          <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close
+          </button>
+          <button type="button" class="btn custombtn btncenter" data-bs-dismiss="modal">Save
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- modal end -->
+  <header class="header" id="header">
+    <div class="header_toggle d-flex align-items-center">
+      <!-- <i class='bx bx-menu' ></i> -->
+      <a href="index.html">
+        <img src="https://www.truboardpartners.com/wp-content/uploads/2021/03/tbp_orignal.png" alt="" width="200px"
+          class="ms-3">
+      </a>
+    </div>
+    <div class="selectwrappermain">
+      <div class="selectwrap">
+        <!-- <span>Select Client</span> -->
+        <select class="form-select">
+          <option value="" disabled selected>Select Client</option>
+          <option value="">HDFC</option>
+          <option value="">ICICI</option>
+          <option value="">AXIS</option>
+        </select>
+      </div>
+      <div class="selectwrap">
+        <!-- <span>Select Plant</span> -->
+        <select class="form-select">
+          <option value="" disabled selected>Select Plant</option>
+          <option value="">50 MW Bhiwadi</option>
+          <option value="">100 MW Rewa</option>
+        </select>
+      </div>
+    </div>
+    <!-- Example single danger button -->
+    <div class="btn-group mt-2 cursor-pointer">
+      <figure class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+        <img src="img/profile.png" class="rounded-circle shadow" width="35px">
+      </figure>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="#">SignOut</a></li>
+      </ul>
+    </div>
+  </header>
+  <div class="l-navbar" id="nav-bar">
+    <nav class="nav">
+      <div class="custom-menu" id="header-toggle">
+        <button type="button" id="sidebarCollapse" class="btn btn-primary">
+          <i class='bx bx-menu'></i>
+          <span class="sr-only"></span>
+        </button>
+      </div>
+      <div class="sidenavlinkswrap">
+        <a href="#" class="nav_logo">
+          <i class='bx bx-layer nav_logo-icon'></i>
+          <span class="nav_logo-name">TruGreen</span>
+        </a>
+        <div class="nav_list">
+          <a href="index.html" class="nav_link active" data-bs-toggle="tooltip" data-bs-placement="right"
+            data-bs-title="Dashboard">
+            <i class='bx bx-grid-alt nav_icon'></i>
+            <span class="nav_name">Dashboard</span>
+          </a>
+          <a href="publishedDSM.html" class="nav_link" data-bs-toggle="tooltip" data-bs-placement="right"
+            data-bs-title="Published DSM log">
+            <i class='bx bx-user nav_icon'></i>
+            <span class="nav_name">Published DSM log</span>
+          </a>
+          <a href="data-Inaccuracy-log.html" class="nav_link" data-bs-toggle="tooltip" data-bs-placement="right"
+            data-bs-title="Data inaccuracy log">
+            <i class='bx bx-message-square-detail nav_icon'></i>
+            <span class="nav_name">Data inaccuracy log</span>
+          </a>
+          <a href="plant-outage-log.html" class="nav_link" data-bs-toggle="tooltip" data-bs-placement="right"
+            data-bs-title="Plant outage log">
+            <i class='bx bx-bookmark nav_icon'></i>
+            <span class="nav_name">Plant outage log</span>
+          </a>
+          <a href="energy-invoice-log.html" class="nav_link" data-bs-toggle="tooltip" data-bs-placement="right"
+            data-bs-title="Energy invoice log">
+            <i class='bx bx-folder nav_icon'></i>
+            <span class="nav_name">Energy invoice log</span>
+          </a>
+        </div>
+      </div>
+      <a href="#" class="nav_link" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="SignOut">
+        <i class='bx bx-log-out nav_icon'></i>
+        <span class="nav_name">SignOut</span>
+      </a>
+    </nav>
+  </div>
+  <!--Container Main start-->
+  <aside class="height-100">
+    <div class="flex_tabhead">
+      <h2 class="subheading">
+        <span class="backevent" onclick="history.back()">
+          <i class='bx bx-arrow-back'></i>
+        </span> Energy invoice log
+      </h2>
+      <li class="d-flex">
+        <div class="field me-4">
+          <div class="ui calendar" id="rangestart">
+            <label class="me-1">From</label>
+            <div class="ui input left icon">
+              <i class="bx bx-calendar-week icon"></i>
+              <input type="text" placeholder="Start">
+            </div>
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui calendar" id="rangeend">
+            <label class="me-1">To</label>
+            <div class="ui input left icon">
+              <i class="bx bx-calendar-event icon"></i>
+              <input type="text" placeholder="End">
+            </div>
+          </div>
+        </div>
+      </li>
+      <ul class="d-flex align-items-center">
+        <li>
+          <!-- <div class="task-request">
+            <span class="me-3 btn btn-outline-primary">
+              <i class="bx bx-folder-plus"></i> Create Task </span>
+            <span class=" btn btn-primary">
+              <i class="bx bx-headphone"></i> Request Support </span>
+          </div> -->
+        </li>
+      </ul>
+    </div>
+    <div class="table_dsm card table-responsive-md">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Scheduled JMR Generation date</th>
+            <th>Actual JMR Generation date</th>
+            <th>JMR no.</th>
+            <th>JMR Amount</th>
+            <th>Scheduled invoice submission date</th>
+            <th>Actual Invoice submission due date</th>
+            <th>Scheduled JMR amount</th>
+            <th>Payment due date</th>
+            <th>JMR and Invoice timeline</th>
+            <th>Amount received</th>
+            <th>UTR number</th>
+            <th>UTR date</th>
+            <th>Received amount deviation</th>
+            <th>Dispute status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>value 1</td>
+            <td>value 2</td>
+            <td>value 3</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+              <label class="dropdown">
+                <div class="dd-button"> Action </div>
+                <input type="checkbox" class="dd-input" id="test">
+                <ul class="dd-menu">
+                  <li data-bs-toggle="modal" data-bs-target="#viewdispute">View dispute</li>
+                  <li data-bs-toggle="modal" data-bs-target="#raisedispute">Raise dispute</li>
+                  <li data-bs-toggle="modal" data-bs-target="#updatedispute">Update dispute</li>
+                </ul>
+              </label>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </aside>
+  <!--Container Main end-->
+</body>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+<!-- <script src="https://kit.fontawesome.com/b19f11b793.js"></script> -->
+<script src="https://cdn.datatables.net/v/bs5/dt-1.13.4/datatables.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/apexcharts.min.js"></script>
+<script src="js/charts.js"></script>
+<script
+  src="https://cdn.rawgit.com/mdehoog/Semantic-UI/6e6d051d47b598ebab05857545f242caf2b4b48c/dist/semantic.min.js"></script>
+<script src="js/app.js"></script>
+<script>
+  $(document).ready(function () {
+    $('#rangestart').calendar({
+      type: 'date',
+      endCalendar: $('#rangeend')
+    });
+    $('#rangeend').calendar({
+      type: 'date',
+      startCalendar: $('#rangestart')
+    });
+  });
+</script>
+</body>
+
+</html>

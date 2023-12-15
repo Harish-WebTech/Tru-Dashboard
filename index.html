@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!-- links -->
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/media.css">
+  <link rel="stylesheet" href="css/calender.css">
+  <link href="https://cdn.datatables.net/v/bs5/dt-1.13.4/datatables.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css
+">
+</head>
+
+<body id="body-pd">
+
+  <!-- Modal -->
+  <div class="modal fade modal-xl" id="branchMap" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header py-2">
+          <h5 class="modal-title" id="exampleModalLabel">
+            <img src="img/location.png" width="10px" />
+            <span class="ms-2">Branch Locations</span>
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-0" style="height: 80vh;">
+          <div id="map"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- modal end -->
+
+  <header class="header" id="header">
+    <div class="header_toggle d-flex align-items-center">
+      <a href="index.html">
+        <img src="https://www.truboardpartners.com/wp-content/uploads/2021/03/tbp_orignal.png" alt="" class="ms-3">
+      </a>
+    </div>
+    <div class="selectwrappermain">
+      <div class="selectwrap">
+        <select class="form-select">
+          <option value="" disabled selected>Select Client</option>
+          <option value="">HDFC</option>
+          <option value="">ICICI</option>
+          <option value="">AXIS</option>
+        </select>
+      </div>
+      <div class="selectwrap">
+        <select class="form-select">
+          <option value="" disabled selected>Select Plant</option>
+          <option value="">50 MW Bhiwadi</option>
+          <option value="">100 MW Rewa</option>
+        </select>
+      </div>
+    </div>
+    <!-- Example single danger button -->
+    <div class="btn-group mt-2 cursor-pointer">
+      <figure class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+        <img src="img/profile.png" class="rounded-circle shadow" width="35px">
+      </figure>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="#">SignOut</a></li>
+      </ul>
+    </div>
+  </header>
+  <div class="l-navbar" id="nav-bar">
+    <nav class="nav">
+      <div class="custom-menu" id="header-toggle">
+        <button type="button" id="sidebarCollapse" class="btn btn-primary">
+          <i class='bx bx-menu'></i>
+          <span class="sr-only"></span>
+        </button>
+        <!-- <div class="menu btn13" id="sidebarCollapse" data-menu="13">
+          <div class="icon"></div>
+        </div> -->
+      </div>
+      <div class="sidenavlinkswrap">
+        <a href="#" class="nav_logo">
+          <i class='bx bx-layer nav_logo-icon'></i>
+          <span class="nav_logo-name">TruGreen</span>
+        </a>
+        <div class="nav_list">
+          <a href="index.html" class="nav_link active" data-bs-toggle="tooltip" data-bs-placement="right"
+            data-bs-title="Dashboard">
+            <i class='bx bx-grid-alt nav_icon'></i>
+            <span class="nav_name">Dashboard</span>
+          </a>
+          <a href="publishedDSM.html" class="nav_link" data-bs-toggle="tooltip" data-bs-placement="right"
+            data-bs-title="Published DSM log">
+            <i class='bx bx-user nav_icon'></i>
+            <span class="nav_name">Published DSM log</span>
+          </a>
+          <a href="data-Inaccuracy-log.html" class="nav_link" data-bs-toggle="tooltip" data-bs-placement="right"
+            data-bs-title="Data inaccuracy log">
+            <i class='bx bx-message-square-detail nav_icon'></i>
+            <span class="nav_name">Data inaccuracy log</span>
+          </a>
+          <a href="plant-outage-log.html" class="nav_link" data-bs-toggle="tooltip" data-bs-placement="right"
+            data-bs-title="Plant outage log">
+            <i class='bx bx-bookmark nav_icon'></i>
+            <span class="nav_name">Plant outage log</span>
+          </a>
+          <a href="energy-invoice-log.html" class="nav_link" data-bs-toggle="tooltip" data-bs-placement="right"
+            data-bs-title="Energy invoice log">
+            <i class='bx bx-folder nav_icon'></i>
+            <span class="nav_name">Energy invoice log</span>
+          </a>
+        </div>
+      </div>
+      <a href="#" class="nav_link" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="SignOut">
+        <i class='bx bx-log-out nav_icon'></i>
+        <span class="nav_name">SignOut</span>
+      </a>
+    </nav>
+  </div>
+  <!--Container Main start-->
+  <aside class="height-100">
+    <div class="row">
+      <div class="col-3 ps-0">
+        <div class="weather_card mb-4">
+          <h4>Today's Weather</h4>
+          <!-- <img src="img/weather.gif" class="cardpin" alt=""> -->
+          <div class="weather_card_img">
+            <canvas id="cur-icon" width="50" height="50" class="mx-2"></canvas>
+          </div>
+          <div class="weather_card_infos">
+            <!-- <div id="loc" class="weather_card_infos_title"></div> -->
+            <div id="cur-deg" data-num="0" data-temp="cel" class="weather_card_infos_temp"></div>
+            <div class="bottom">
+              <hr>
+            </div>
+          </div>
+        </div>
+        <div class="mmtdata mb-4">
+          <div class="card">
+            <h5>2.5 MMT</h5>
+            <p class="my-1 bg-radius shadow-sm text-white">
+              <small>CO<sub>2</sub> Saved</small>
+            </p>
+          </div>
+          <div class="card">
+            <h5>2.5 M</h5>
+            <p class="my-1 bg-radius shadow-sm text-white">
+              <small>Safe Manhours</small>
+            </p>
+          </div>
+        </div>
+        <div class="gwdata card mb-4 p-0">
+          <ul class="ps-0">
+            <li>
+              <img src="img/solarpanel1.png" alt="">
+              <h2>4 GW <small>2</small></h2>
+              <!-- <span class="text-muted">sites</span> -->
+            </li>
+            <li>
+              <img src="img/windmill3.png" alt="">
+              <h2>4.3 GW <small>2</small></h2>
+              <!-- <span class="text-muted">sites</span> -->
+            </li>
+            <li>
+              <img src="img/energy3.png" alt="">
+              <h2>4 GWh </h2>
+              <!-- <span class="text-muted">sites</span> -->
+            </li>
+          </ul>
+          <figure class="branchlocation">
+            <div class="globe" data-bs-toggle="modal" data-bs-target="#branchMap">
+              <img src="img/glob.gif" data-bs-toggle="tooltip" data-bs-placement="right"
+                data-bs-title="Click to get locations" />
+            </div>
+            <figcaption>Our Branches <img src="img/location.png">
+            </figcaption>
+          </figure>
+          <!-- <div id="map"></div> -->
+        </div>
+        <div class="totalgeneration mb-4">
+          <div class="card corner shadow-sm">
+            <img src="img/power.png">
+            <div>
+              <h6>Total Generation</h6>
+              <h4>10,00,000 KWh</h4>
+            </div>
+          </div>
+          <div class="card corner shadow-sm mb-0">
+            <img src="img/biled.png">
+            <div>
+              <h6>Total Billed Energy</h6>
+              <h4>10,00,000 KWh</h4>
+            </div>
+          </div>
+        </div>
+        <div class="indexcol corner card mb-4">
+          <img src="img/esg.png">
+          <div>
+            <h6>ESG healthiness <br> Index</h6>
+            <h4 class="text-success">98</h4>
+          </div>
+          <label class="shadow-sm">Truboard Statndard 98</label>
+        </div>
+        <div class="indexcol corner card mb-4">
+          <img src="img/procurment.png">
+          <div>
+            <h6>Procurement Healthiness Index</h6>
+            <h4 class="text-danger">90</h4>
+          </div>
+          <label>Truboard Statndard 78</label>
+        </div>
+        <div class="indexcol corner card mb-4">
+          <img src="img/health.png">
+          <div>
+            <h6>Operational healthiness Index</h6>
+            <h4 class="text-danger">98</h4>
+          </div>
+          <label>Truboard Statndard 84</label>
+        </div>
+      </div>
+      <div class="col-9">
+        <ul class="subheader ps-0">
+          <li class="cardui p-4">
+            <figure class="teamimg">
+              <img src="img/team.avif" alt="">
+            </figure>
+            <div class="selectdate">
+              <div class="field me-4">
+                <div class="ui calendar" id="rangestart">
+                  <div class="ui input left icon">
+                    <i class='bx bx-calendar-week icon'></i>
+                    <input type="text" placeholder="To Date">
+                  </div>
+                </div>
+              </div>
+              <div class="field">
+                <div class="ui calendar" id="rangeend">
+                  <div class="ui input left icon">
+                    <i class='bx bx-calendar-event icon'></i>
+                    <input type="text" placeholder="From Date">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-primary textchange">Check details </button>
+            <!-- <div class="task-request">
+              <span class="me-4 btn btn-outline-primary">
+                <i class='bx bx-folder-plus'></i> Create Task </span>
+              <span class=" btn btn-primary">
+                <i class='bx bx-headphone'></i> Request Support </span>
+            </div> -->
+          </li>
+        </ul>
+        <div class="cardui">
+          <div class="row mb-4">
+            <div class="col">
+              <div class="card bgprimary">
+                <h6>Billed <br /> Revenue</h6> <img src="img/circle.svg">
+                <span class="cardnumvalue">
+                  <i class="bi bi-currency-rupee"></i> 67,89809</span>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card bgsuccess">
+                <h6> Received <br />Revenue </h6> <img src="img/circle.svg">
+                <span class="cardnumvalue">
+                  <i class="bi bi-currency-rupee"></i> 98,67895</span>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card bglight">
+                <h6>Overdue <br /> Revenue</h6> <img src="img/circle.svg">
+                <span class="cardnumvalue">
+                  <i class="bi bi-currency-rupee"></i> 87,65668</span>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card bgwarning">
+                <h6>DSM <br /> %
+                  <span class="svalue"><i class="bi bi-currency-rupee"></i>2800</span>
+                </h6>
+                <img src="img/circle.svg">
+                <span class="cardnumvalue">
+                  <!-- <i class="bi bi-currency-rupee"></i>  -->
+                  0.28%</span>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card bgdanger">
+                <h6> Outward Bill Paid <br /> Status</h6> <img src="img/circle.svg">
+                <span class="cardnumvalue">
+                  93.78%</span>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="timeline">
+                <table class="table mb-0">
+                  <tr>
+                    <td>Previous <br /> FY</td>
+                    <td><img src="img/up.png" width="12px"> 3.3%</td>
+                    <td><img src="img/up.png" width="12px"> 3.4%</td>
+                    <td><img src="img/up.png" width="12px"> 3.7%</td>
+                    <td><img src="img/up.png" width="12px"> 3.5%</td>
+                    <td><img src="img/up.png" width="12px"> 3.2%</td>
+                  </tr>
+                  <tr>
+                    <td>Contractual <br> Benchmark</td>
+                    <td><img src="img/down.png" width="12px"> 3.5%</td>
+                    <td><img src="img/down.png" width="12px"> 3.2%</td>
+                    <td><img src="img/down.png" width="12px"> 3.6%</td>
+                    <td><img src="img/down.png" width="12px"> 3.8%</td>
+                    <td><img src="img/down.png" width="12px"> 3.2%</td>
+                  </tr>
+                </table>
+                <!-- <span class="bar"></span> -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="my-4">
+          <div class="row">
+            <div class="col">
+              <div class="card">
+                <div id="receivableSubmission"></div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card">
+                <div id="dataAvailability"></div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card">
+                <div id="revenueReceived"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mb-4">
+          <!-- <div class="synccheckheader mt-4">
+            <label class="form-check-label">
+              <i class="bi bi-graph-up me-2"></i>
+              Synchronus Scrolling
+              <input type="checkbox" class="ms-2 form-check-input">
+            </label>
+          </div> -->
+          <div class="row syncrow">
+            <div class="col">
+              <div class="card" id="synced-charts">
+                <div id="publishedData"></div>
+                <!-- <div id="scheduledData"></div> -->
+              </div>
+            </div>
+            <div class="col">
+              <div class="card">
+                <div id="scheduledData"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="my-4">
+          <div class="row">
+            <div class="col">
+              <div class="card">
+                <div id="deviationGraph"></div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card">
+                <div id="powerGraph"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="my-4 pg-none">
+          <div class="row">
+            <div class="col-12 mb-4">
+              <div class="piechartflex cardui">
+                <div class="piechartwrapper">
+                  <div id="deviationBand"></div>
+                </div>
+                <div class="pietable">
+                  <h6>Deviation band (Scheduled vs Actual)</h6>
+                  <table class="table table-striped table-bordered pg-none" id="dataTable">
+                    <thead>
+                      <tr>
+                        <th scope="col">S.No</th>
+                        <th scope="col">Deviation Band</th>
+                        <th scope="col">Deviation Energy (kWh)</th>
+                        <th scope="col">Penalty on Deviation Band (INR)</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">1</th>
+                        <td>>35%(+)</td>
+                        <td>1,072,105</td>
+                        <td>14000</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">2</th>
+                        <td>25%-35%</td>
+                        <td>3,26,841</td>
+                        <td>15000</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">3</th>
+                        <td>25%-35%</td>
+                        <td>12,535,852</td>
+                        <td>16000</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="piechartflex cardui">
+                <div class="piechartwrapper">
+                  <div id="deviationBand2"></div>
+                </div>
+                <div class="pietable">
+                  <h6>Deviation band (Published vs Actual)</h6>
+                  <table class="table table-striped table-bordered" id="dataTable2">
+                    <thead>
+                      <tr>
+                        <th scope="col">S.No</th>
+                        <th scope="col">Deviation Band</th>
+                        <th scope="col">Deviation Energy (kWh)</th>
+                        <th scope="col">Penalty on Deviation Band (INR)</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">1</th>
+                        <td>>34%(+)</td>
+                        <td>1,1072,105</td>
+                        <td>10000</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">2</th>
+                        <td>24%-35%</td>
+                        <td>3,24,841</td>
+                        <td>11500</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">3</th>
+                        <td>21%-35%</td>
+                        <td>12,335,852</td>
+                        <td>19500</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="my-4">
+          <div class="row">
+            <div class="col">
+              <div class="card">
+                <div id="publishedGeneration1"></div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card">
+                <div id="publishedGeneration2"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="my-4">
+          <div class="row">
+            <div class="col">
+              <div class="card">
+                <div id="publishedGeneration3"></div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card">
+                <div id="expoerImport"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+</body>
+<script src="js/jquery.min.js"></script>
+<script src="js/datatables.min.js"></script>
+<script src="js/apexcharts.min.js"></script>
+<script src="js/charts.js"></script>
+<script src="js/semantic.min.js"></script>
+<script src="js/app.js"></script>
+<script src="js/skycons.js"></script>
+<script src="js/weather.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+<script
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap&v=weekly"
+  defer></script>
+<script src="js/map.js"></script>
+</body>
+
+</html>

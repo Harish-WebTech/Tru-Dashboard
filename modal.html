@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!-- links -->
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/media.css">
+  <link rel="stylesheet" href="css/calender.css">
+  <link href="https://cdn.datatables.net/v/bs5/dt-1.13.4/datatables.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css
+  ">
+</head>
+<style type="text/css">
+  .imagePreview {
+    width: 38px;
+    height: 38px;
+    border-radius: 4px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-right: 15px;
+  }
+
+  .file-upload {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.12);
+    margin-bottom: 15px;
+    position: relative;
+    border-radius: 4px;
+    background-color: #fff;
+  }
+
+  .file-select {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+  }
+
+
+  .file-select-name {
+    margin-left: 15px;
+  }
+
+  .file-select input[type=file] {
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .file-remove {
+    margin-left: 15px;
+    position: absolute;
+    right: 15px;
+    top: 20px;
+    padding: 0;
+  }
+
+  .file-remove i {
+    font-size: 1.6rem;
+    color: red;
+  }
+</style>
+
+<body>
+  <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#increation">Invoice Creation</button>
+
+  <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#inverification">Invoice Verification</button>
+
+  <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#rejectmodal">Reject Modal</button>
+
+  <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#sendbackmodal">Send Back</button>
+
+  <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#jmrreading">JMR Reading</button>
+
+  <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#jmrsubmission">JMR Submission</button>
+
+  <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#acknowledgementinvoice">
+    Acknowledgement of Invoice submission to Offtaker
+  </button>
+
+  <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#paymentreceivalstatus">
+    Payment receival status
+  </button>
+
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="increation" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">
+            Invoice Creation
+          </h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="d-flex justify-content-between">
+            <h5>Attachment</h5>
+            <button class="btn btn-primary mb-3 file-add">
+              <i class='bx bx-plus'></i> add fields</button>
+          </div>
+          <div class="upload-card">
+            <div class="file-upload">
+              <div class="file-select">
+                <div class="imagePreview"></div>
+                <button class="btn btn-secondary">Choose File</button>
+                <div class="file-select-name">No File Chosen</div>
+                <input type="file" name="files[]" class="profileimg">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer d-flex justify-content-end">
+          <div class="d-flex justify-content-between gap-3">
+            <!-- <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close
+            </button> -->
+            <select class="form-select w-auto bg-white">
+              <option>Select Approvel from</option>
+              <option>L1</option>
+              <option>L2</option>
+            </select>
+            <button type="button" class="btn btn-success">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- modal end -->
+
+  <!-- Modal -->
+  <div class="modal fade" id="inverification" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">
+            Invoice Verification
+          </h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="d-flex justify-content-between">
+            <h5>Attachment</h5>
+            <button class="btn btn-primary mb-3 file-add">
+              <i class='bx bx-plus'></i> add fields</button>
+          </div>
+          <div class="upload-card">
+            <div class="file-upload">
+              <div class="file-select">
+                <div class="imagePreview"></div>
+                <button class="btn btn-secondary">Choose File</button>
+                <div class="file-select-name">No File Chosen</div>
+                <input type="file" name="files[]" class="profileimg">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer d-flex justify-content-end">
+          <div class="d-flex justify-content-between gap-3 w-100">
+            <!-- <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close
+            </button> -->
+            <select class="form-select w-auto bg-white">
+              <option>Status</option>
+              <option>Approved</option>
+              <option>Send Back</option>
+            </select>
+            <div>
+              <button type="button" class="btn btn-outline-danger">Cancel</button>
+              <button type="button" class="btn btn-success">Proceed</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- modal end -->
+
+  <!-- Modal -->
+  <div class="modal fade" id="rejectmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">
+            Reject Confirm
+          </h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <h5>Remarks</h5>
+          <textarea class="form-control" rows="4"></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel
+          </button>
+          <button type="button" class="btn btn-success">Reject</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- modal end -->
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="sendbackmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">
+            Send back Confirm
+          </h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <h5>Remarks</h5>
+          <textarea class="form-control" rows="4"></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel
+          </button>
+          <button type="button" class="btn btn-success">Send Back</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- modal end -->
+
+  <!-- Modal -->
+  <div class="modal fade" id="jmrreading" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">
+            JMR Reading
+          </h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <h5>Is the JMR reading done today?</h5>
+          <textarea class="form-control" rows="4"></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancel
+          </button>
+          <button type="button" class="btn btn-success">Completed</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- modal end -->
+
+  <!-- Modal -->
+  <div class="modal fade" id="jmrsubmission" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">
+            JMR Submission
+          </h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-4">
+            <h6>JMR No if Provided</h6>
+            <input type="text" class="form-control" placeholder="Exp : AXKPER89990">
+          </div>
+          <div class="d-flex align-items-end justify-content-between">
+            <h6>Attachment</h6>
+            <button class="btn btn-sm btn-outline-primary mb-3 file-add">
+              <i class="bx bx-plus"></i> Add Field</button>
+          </div>
+          <div class="upload-card">
+            <div class="file-upload">
+              <div class="file-select">
+                <div class="imagePreview"></div>
+                <button class="btn btn-secondary">Choose File</button>
+                <div class="file-select-name">No File Chosen</div>
+                <input type="file" name="files[]" class="profileimg">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer d-flex justify-content-end">
+          <div class="d-flex justify-content-between gap-3">
+            <button type="button" class="btn btn-outline-danger">Cancel</button>
+            <button type="button" class="btn btn-success">Completed</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- modal end -->
+
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="acknowledgementinvoice" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">
+            Acknowledgement of Invoice submission to Offtaker
+          </h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="d-flex justify-content-between">
+            <h5>Attachment</h5>
+            <button class="btn btn-primary mb-3 file-add">
+              <i class='bx bx-plus'></i> add fields</button>
+          </div>
+          <div class="upload-card">
+            <div class="file-upload">
+              <div class="file-select">
+                <div class="imagePreview"></div>
+                <button class="btn btn-secondary">Choose File</button>
+                <div class="file-select-name">No File Chosen</div>
+                <input type="file" name="files[]" class="profileimg">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer d-flex justify-content-end">
+          <div class="d-flex justify-content-between gap-3">
+            <button type="button" class="btn btn-outline-danger">Cancel</button>
+            <button type="button" class="btn btn-success">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- modal end -->
+
+
+
+   <!-- Modal -->
+   <div class="modal fade" id="paymentreceivalstatus" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">
+            Payment Receival Status
+          </h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-4">
+            <h6>UTR number</h6>
+            <input type="text" class="form-control" placeholder="Exp : AXKPER89990">
+          </div>
+          
+          <div class="mb-4">
+            <h6>UTR date</h6>
+            <input type="date" class="form-control" >
+          </div>
+
+          <div class="mb-4">
+            <h6>Amount received</h6>
+            <input type="text" class="form-control" placeholder="Exp : AXKPER89990">
+          </div>
+        </div>
+        <div class="modal-footer d-flex justify-content-end">
+          <div class="d-flex justify-content-between gap-3">
+            <button type="button" data-bs-dismiss="modal" class="btn btn-outline-danger">Cancel</button>
+            <button type="button" data-bs-dismiss="modal" class="btn btn-success">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- modal end -->
+
+
+
+
+
+
+
+
+</body>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+<!-- <script src="https://kit.fontawesome.com/b19f11b793.js"></script> -->
+<script src="https://cdn.datatables.net/v/bs5/dt-1.13.4/datatables.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/apexcharts.min.js"></script>
+<script src="js/charts.js"></script>
+<script
+  src="https://cdn.rawgit.com/mdehoog/Semantic-UI/6e6d051d47b598ebab05857545f242caf2b4b48c/dist/semantic.min.js"></script>
+<script src="js/app.js"></script>
+
+
+<script>
+  $(document).ready(function () {
+    $(document).on('change', '.file-upload input[type="file"]', function () {
+      var filename = $(this).val();
+      if (/^\s*$/.test(filename)) {
+        $(this).parents(".file-upload").find(".file-select-name").text("No file chosen...");
+      } else {
+        $(this).parents(".file-upload").find(".file-select-name").text(filename.substring(filename.lastIndexOf("\\") + 1, filename.length));
+      }
+
+      var uploadFile = $(this);
+      var files = !!this.files ? this.files : [];
+      if (!files.length || !window.FileReader) return; // no file selected, or no FileReader support
+
+      if (/^image/.test(files[0].type)) { // only image file
+        var reader = new FileReader(); // instance of the FileReader
+        reader.readAsDataURL(files[0]); // read the local file
+
+        reader.onloadend = function () { // set image data as background of div
+          // alert(uploadFile.closest(".file-upload").find('.imagePreview').length);
+          uploadFile.closest(".file-upload").find('.imagePreview').css("background-image", "url(" + this.result + ")");
+        }
+      }
+    });
+    $(document).on('click', '.file-remove', function (e) {
+      e.preventDefault();
+      $(this).closest('.file-upload').remove();
+      return false;
+    });
+    $(document).on('click', '.file-add', function (e) {
+      e.preventDefault();
+      $(".upload-card").append('<div class="file-upload">' +
+        '<div class="file-select">' +
+        '<div class="imagePreview"></div>' +
+        '<button class="btn btn-secondary">Choose File</button>' +
+        '<div class="file-select-name">No File Chosen</div>' +
+        '<input type="file" name="files[]" class="profileimg">' +
+        '</div>' +
+        '<button class="btn file-remove"><i class="bx bx-trash"></i></button>' +
+        '</div>');
+      return false;
+
+    });
+  });
+
+
+
+
+
+
+
+
+
+</script>
+
+</body>
+
+</html>
